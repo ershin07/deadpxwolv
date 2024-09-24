@@ -5,27 +5,79 @@
         <h1><!---header 1-->
             Welcome to my Sample Page <!--Banner-->
         </h1>
+
+        <script>
+
+            function displayALERT(){
+                alert("Stop clicking me!!!!")
+            }
+
+            function mySHOW() {
+            var x = document.getElementById("aw");
+            if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+             }
+
+             function chngPIC(){
+                var x = document.getElementById("pic");
+                if (x.src.endsWith("images/winter.jpg")) {
+                    x.src = "images/farm.jpg";
+                } else if (x.src.endsWith("images/farm.jpg")) {
+                    x.src = "images/swim.jpg";
+                } else if (x.src.endsWith("images/swim.jpg")) {
+                    x.src = "images/winter.jpg";
+                }
+             }
+        
+            function textTOOGLE(){
+                var x = document.getElementById("buttonSHOW")
+                if (x.innerHTML === "Hide"){
+                    x.innerHTML = "Show";
+                } else if (x.innerHTML === "Show"){
+                    x.innerHTML = "Hide";
+                }
+
+            }
+
+
+        </script>
     </head>
 
     <body>
         <div class="content"> <!--div acts like a container 
             similar to tables in Word Document-->
 
+            </br>
+            <button id="buttonSHOW" onclick="mySHOW(); textTOOGLE();">Hide</button>
+
             <h2>Introduction</h2>
 
-            <p>
+            <p id="aw">
                 This website is currently in its early yucky and trashy stage, but it's designed with the goal of evolving into a dynamic and valuable resource
                 akin to the theory of evolution by Charles Darwin. However, we’re excited to share that, through our ongoing joyful and interesting Webserver course 
                 with non other than Miss Sharon Sasha: Our Sweet, Smart, and Slightly Mischievous Guru!, we’ll be adding more features and enhancements to make 
                 this site truly exceptional. Stay tuned for updates and improvements that will make this site both interesting and useful! 
             </p>
             
+        </br>
+        <button onclick="alert('GASP?! How dare you!!!')">Don't Click</button>
+        </br>
+        </br>
+        <button onclick="displayALERT()">Don't Click me too!!!</button>
+
+
             <h3>Image Section (Please bear with the image of Psyduck
                 as he is my favorite pokemon. Yes hes dumb but hes cute)
             </h3>
 
-            <img src="images/winter.jpg" alt="A sample image" width="300">
-            
+            <img id="pic" src="images/winter.jpg" alt="A sample image" width="300">
+
+            </br>
+            <button onclick="chngPIC()">Next Picture</button>
+
             <h3>List of Items (So plain, I can't think of any things to list)</h3>
             <ul>
                 <li>Item 1</li>
