@@ -42,6 +42,12 @@
 
             }
 
+            async function getText(file) {
+                    let x = await fetch(file);
+                    let y = await x.text();
+                    document.getElementById("ew").innerHTML = y;
+            }
+
 
         </script>
     </head>
@@ -50,8 +56,8 @@
         <div class="content"> <!--div acts like a container 
             similar to tables in Word Document-->
 
-            </br>
-            <button id="buttonSHOW" onclick="mySHOW(); textTOOGLE();">Hide</button>
+        </br>
+        <button id="buttonSHOW" onclick="mySHOW(); textTOOGLE();">Hide</button>
 
             <h2>Introduction</h2>
 
@@ -61,7 +67,11 @@
                 with non other than Miss Sharon Sasha: Our Sweet, Smart, and Slightly Mischievous Guru!, we’ll be adding more features and enhancements to make 
                 this site truly exceptional. Stay tuned for updates and improvements that will make this site both interesting and useful! 
             </p>
-            
+        </br>
+        <p>What the fox say?</p>
+        <button onclick="getText('fox.txt')">Click to know</button>
+        <div id="ew"></div>
+         </br>
         </br>
         <button onclick="alert('GASP?! How dare you!!!')">Don't Click</button>
         </br>
