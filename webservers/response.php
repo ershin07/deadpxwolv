@@ -8,13 +8,12 @@
         $email = htmlspecialchars($_GET['email']);
         $age = htmlspecialchars($_GET['number']);
     ?>
-
-
     </head>
+
     <body>
-        <p>Your Username is: <?= echo $username; ?></p>
-        <p>Your email is: <?= echo $email;?></p>
-        <p>Your age is:<?= echo $age;?></p>
+        <p>Your Username is: <?php echo $username; ?></p>
+        <p>Your email is: <?php echo $email; ?></p>
+        <p>Your age is:<?php echo $age; ?></p>
         <p>mauhahaha</p>
     </body>
 </html>
