@@ -8,6 +8,10 @@
 
     <body>
         <p>
+            Your user agent issssss
+        </p>
+        
+        <p>
             <?php
                 echo $_SERVER['HTTP_USER_AGENT'];
             ?>
