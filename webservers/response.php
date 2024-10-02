@@ -4,9 +4,9 @@
         <title>This is the response page, get over with it!!!</title>
 
     <?php
-        $name = htmlspecialchars($_GET['name']);
+        $name = htmlspecialchars($_GET['username']);
         $email = htmlspecialchars($_GET['email']);
-        $age = htmlspecialchars($_GET['number']);
+        $age = htmlspecialchars($_GET['age']);
     ?>
     </head>
 
