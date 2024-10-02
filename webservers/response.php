@@ -15,5 +15,7 @@
         <p>Your email is: <?php echo $email; ?></p>
         <p>Your age is:<?php echo $num; ?></p>
         <p>mauhahaha</p>
+        <p>GET: <?php var_dump($_GET); ?></p>
+        <p>POST: <?php var_dump($_POST); ?></p>
     </body>
 </html>
