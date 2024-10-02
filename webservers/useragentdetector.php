@@ -2,16 +2,15 @@
 <html>
     <head>
        <title>
-        Welcome
+        This page is use to know your current user agent
        </title>
     </head>
 
     <body>
-        <h1>
-            Warning!!
-        </h1>
         <p>
-            <?= var_dump($_SERVER) ?>
+            <?php
+                echo $_SERVER['HTTP_USER_AGENT'];
+            ?>
         </p>
         <p>
             you about to see the start up of a .php website
