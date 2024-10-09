@@ -4,9 +4,9 @@
         <title>This is the response page, get over with it!!!</title>
 
     <?php
-        $name = htmlspecialchars($_GET['username']);
-        $email = htmlspecialchars($_GET['email']);
-        $num = htmlspecialchars($_GET['age']);
+        $name = filter_input($INPUT_POST['username'], );
+        $email = htmlspecialchars($INPUT_POST['email']);
+        $num = htmlspecialchars($INPUT_POST['age']);
     ?>
     </head>
 
@@ -15,7 +15,5 @@
         <p>Your email is: <?php echo $email; ?></p>
         <p>Your age is:<?php echo $num; ?></p>
         <p>mauhahaha</p>
-        <p>GET: <?php var_dump($_GET); ?></p>
-        <p>POST: <?php var_dump($_POST); ?></p>
     </body>
 </html>
