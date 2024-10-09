@@ -2,12 +2,6 @@
 <html>
     <head>
         <title>This is the response page, get over with it!!!</title>
-
-    <?php
-        $name = filter_input($_POST['username']);
-        $email = htmlspecialchars(_$POST['email']);
-        $num = htmlspecialchars($_POST['age']);
-    ?>
     </head>
 
     <body>
