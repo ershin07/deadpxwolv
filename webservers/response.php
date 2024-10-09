@@ -5,7 +5,7 @@
 
     <?php
         $name = filter_input($_POST['username']);
-        $email = filter_input(_$POST['email']);
+        $email = filter_input($_POST['email']);
         $num = filter_input($_POST['age']);
     ?>
     
