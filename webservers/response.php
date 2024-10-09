@@ -5,7 +5,7 @@
 
     <?php
         $name = htmlspecialchars($_POST['username']);
-        $email = htmlspecialcharst($_POST['email']);
+        $email = htmlspecialchars($_POST['email']);
         $num = htmlspecialchars($_POST['age']);
     ?>
     
