@@ -4,9 +4,9 @@
         <title>This is the response page, get over with it!!!</title>
 
     <?php
-        $name = filter_input($_POST['username']);
-        $email = filter_input($_POST['email']);
-        $num = filter_input($_POST['age']);
+        $name = htmlspecialchars($_POST['username']);
+        $email = htmlspecialcharst($_POST['email']);
+        $num = htmlspecialchars($_POST['age']);
     ?>
     
     </head>
