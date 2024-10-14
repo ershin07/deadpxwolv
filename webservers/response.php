@@ -17,4 +17,4 @@
         <p>Your age is: <?php echo htmlspecialchars($num); ?></p>
         <p>mauhahaha</p>
     </body>
-</html>$name = filter_input($_POST, 'username', FILTER_SANITIZE_STRING);
+</html>
