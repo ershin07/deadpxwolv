@@ -56,7 +56,7 @@
 
         
         // Build SQL query based on input values
-        $sql = "SELECT * FROM Games";
+
             $conditions = [];
             if (!empty($title)) {
                 $conditions[] = "title='$title'";
@@ -70,21 +70,21 @@
 
             if (!empty($conditions)) {
                 $sql .= " WHERE " . implode(" AND ", $conditions);
-
+            }
             // Execute the query and check for results
                 $result = mysqli_query($conn, $sql); 
 
-                if (!$result) {
-                    echo "Error executing query: " . mysqli_error($conn);
-                    exit(); // Stop if there is an error with the query
-                }
+            if (!$result) {
+                echo "Error executing query: " . mysqli_error($conn);
+                exit(); // Stop if there is an error with the query
             }
+
         // If exit button is clicked
-        if (isset($_POST['exit'])) {
-            mysqli_close($conn); // Close the connection
-            header("Location: form.html"); // Redirect to the login page
-            exit();
-        }
+            if (isset($_POST['exit'])) {
+                mysqli_close($conn); // Close the connection
+                header("Location: form.html"); // Redirect to the login page
+                exit();
+            }
 
         if (isset($_POST['insert'])) {
             $title = filter_input(INPUT_POST, 'title');
