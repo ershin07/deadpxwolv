@@ -6,12 +6,7 @@
             var field1 = document.getElementById("username");
             var field2 = document.getElementById("password");
             var errorText = document.getElementById("errorText");
-            if (field1.value.trim() === "") {
-                errorText.style.display = "inline";
-            } else {
-                errorText.style.display = "none";
-            }
-            if (field2.value.trim() === "") {
+            if (field1.value.trim() === "") || (field2.value.trim() === "") {
                 errorText.style.display = "inline";
             } else {
                 errorText.style.display = "none";
@@ -84,7 +79,7 @@
 
             <br>
             <br>
-            
+
             <span id="errorText" class="error">Username and Password required</span><br><br>
 
             <input type="submit" value="Submit">
