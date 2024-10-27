@@ -43,11 +43,7 @@
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 }
-            } else {
-            // Redirect back to the login form if no session found
-                header("Location: form.html");
-                exit();
-            }
+            } 
 
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
