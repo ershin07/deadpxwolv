@@ -24,10 +24,10 @@
                 $_SESSION['password'] = mysqli_real_escape_string($conn, $_POST['password']);
                 $username = mysqli_real_escape_string($conn, $_SESSION['username']);
                 $password = mysqli_real_escape_string($conn, $_SESSION['password']);
-            } else { 
-                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-            }
+            } 
+
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
             $database = "Games";
             $conn = mysqli_connect($server, $username, $password, $database);
         // Initialize SQL query
