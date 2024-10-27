@@ -40,10 +40,6 @@
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-            $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
-            $year = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
             if (empty($title) && empty($developer) && empty($year)){
                 $sql = "select * from Games;"; 
             } elseif (empty($developer) && empty($year)){
@@ -54,7 +50,7 @@
                 $sql = "select * from Games WHERE year='$year';"; 
             }    
         }
-        
+
         $result = mysqli_query($conn, $sql); 
 
     ?>
