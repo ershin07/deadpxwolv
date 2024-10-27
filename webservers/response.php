@@ -133,6 +133,7 @@
                     echo "<td>{$row['id']}</td>"; // ID column
                     echo "<td>{$row['title']}</td>"; // Title column
                     echo "<td>{$row['developer']}</td>"; // Developer column
+                    echo "<td>{$row['year']}</td>"; // year column
                     echo "</tr>";
                 }
             ?>  
