@@ -5,14 +5,44 @@
     <?php  
         session_start();
         error_reporting(E_ALL);
-        ini_set('display_errors', 1);
+    ini_set('display_errors', 1);
         //initializing connection
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+            // Capture username and password from form submission
+                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                $database = "Games"; // Change to your actual database name
+                $server = "localhost";
+                $conn = mysqli_connect($server, $username, $password, $database); // Connect to the database
+            // Check if username and password are provided
+                if (empty($username) || empty($password)) {
+                    die("Username or password cannot be empty");
+                }
+
+            // Store credentials in session variables
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
         
-            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-            $database = "Games"; // Change to your actual database name
-            $server = "localhost";
-        
+            // Check connection
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                } else {
+                    echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
+                }
+            } else {
+            // Use stored session variables to connect again if they exist
+                if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+                    $username = $_SESSION['username'];
+                    $password = $_SESSION['password'];
+                    $database = "Games"; // Your database name
+                    $server = "localhost";
+                    $conn = mysqli_connect($server, $username, $password, $database);}
+  
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+            } 
+
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
 
