@@ -27,12 +27,11 @@
                 
             } else {
             // Use stored session variables to connect again if they exist
-                if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
                     $username = $_SESSION['username'];
                     $password = $_SESSION['password'];
                     $database = "Games"; // Your database name
                     $server = "localhost";
-                    $conn = mysqli_connect($server, $username, $password, $database);}
+                    $conn = mysqli_connect($server, $username, $password, $database);
   
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
