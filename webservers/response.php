@@ -125,6 +125,7 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Developer</th>
+                <th>Year</th>
             </tr>
             <?php
       
