@@ -30,8 +30,10 @@
 
             if (!$conn) {
                 die("Connection failed: {mysqli_connect_error()}");
+              } else {
+                $success = "Connected successfully";
               }
-              echo "Connected successfully";
+               
             
             $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING); // SANITIZER lol
             $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -87,6 +89,9 @@
 
             <?php
             if (!empty($error)) {
+                echo "<p class='error'>$error</p>";
+            }
+            if (!empty($success)) {
                 echo "<p class='error'>$error</p>";
             }
             ?>
