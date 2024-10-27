@@ -6,7 +6,7 @@
             var field1= document.getElementById("username");
             var field2= document.getElementById("password");
             var errorText = document.getElementById("errorText");
-            if (field1.value.trim() === "")  && (field2.value.trim() === "") {
+            if( (field1.value.trim() === "")  && (field2.value.trim() === "") ) {
                 errorText.style.display = "inline";
             } else {
                 errorText.style.display = "none";
@@ -89,9 +89,7 @@
                 required placeholder="Enter your password"> 
                 <br>
                 <br> 
-             
-           
-        
+
             <!-- Submit button -->
             <input type="submit" value="Submit">
 
