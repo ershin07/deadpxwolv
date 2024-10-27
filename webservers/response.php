@@ -54,7 +54,9 @@
             $publisher = filter_input(INPUT_POST, 'publisher');
             $year = filter_input(INPUT_POST, 'year');
 
+        
         // Build SQL query based on input values
+        $sql = "SELECT * FROM Games";
             $conditions = [];
             if (!empty($title)) {
                 $conditions[] = "title='$title'";
