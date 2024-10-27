@@ -9,14 +9,13 @@
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $database = "Games";
         $conn = mysqli_connect($server, $username, $password, $database);
-    ?>
-    
-    </head>
-   
-    <body>
-       <?php 
-        // to be updated
 
-       ?>
-    </body>
+        if (!$conn) {
+            die("Connection failed: {mysqli_connect_error()}");
+          }
+          echo "<p>Connected successfully</p>";
+
+    ?>
+    </head>
+
 </html>
