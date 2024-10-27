@@ -54,6 +54,7 @@
             $year = filter_input(INPUT_POST, 'year');
 
         // Build SQL query based on input values
+        if (isset($_POST['submit'])) {
             $conditions = [];
             if (!empty($title)) {
                 $conditions[] = "title='$title'";
@@ -75,7 +76,7 @@
                 echo "Error executing query: " . mysqli_error($conn);
                 exit(); // Stop if there is an error with the query
             }
-        
+        }
         // If exit button is clicked
         if (isset($_POST['exit'])) {
             mysqli_close($conn); // Close the connection
