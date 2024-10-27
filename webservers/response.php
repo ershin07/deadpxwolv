@@ -16,7 +16,7 @@
             echo "<script>
                     alert('Connection Failed: $errorMessage');
                     setTimeout(function() {
-                        window.location.href = 'login.html'; // Change to your actual login page
+                        window.location.href = 'form.html'; // Change to your actual login page
                     }, 3000);
                   </script>";
         } else {
