@@ -11,9 +11,17 @@
         $conn = mysqli_connect($server, $username, $password, $database);
 
         if (!$conn) {
-            echo "<p>Connection Failed: " . mysqli_connect_error() . "</p>";
-          }
-          echo "<p>Connected successfully</p>";
+            // Show error popup and redirect to login after 3 seconds
+            echo "<script>
+                    alert('Connection Failed: " . mysqli_connect_error() . "');
+                    setTimeout(function() {
+                        window.location.href = 'login.html'; // Change to your actual login page
+                    }, 3000);
+                  </script>";
+        } else {
+            // Show success popup
+            echo "<script>alert('Connected successfully');</script>";
+        }
 
     ?>
     </head>
