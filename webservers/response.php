@@ -76,6 +76,13 @@
                 echo "Error executing query: " . mysqli_error($conn);
                 exit(); // Stop if there is an error with the query
             }
+        
+        // If exit button is clicked
+            if (isset($_POST['exit'])) {
+                mysqli_close($conn); // Close the connection
+                header("Location: form.html"); // Redirect to the login page
+                exit();
+            }
 
     ?>
 
@@ -107,6 +114,7 @@
             <br>
             <br>
             <input type="submit" value="Submit">
+            <input type="submit" name="exit" value="Exit"> <!-- Exit button -->
         </form>
         
         <br>
