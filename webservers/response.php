@@ -7,8 +7,7 @@
 
         function startTimer() {
             setTimeout(function() {
-                window.location.href = "form.html";
-
+                window.location.href = "form.html"
             }, 5000); // Redirects after 5 seconds
         }
 
@@ -27,7 +26,6 @@
         $conn = mysqli_connect($server, $username, $password, $database);
 
         if (!$conn) {
-            echo "startTimer()";
             echo "Invalid Username or Password";
         } else {
             // Show success popup
