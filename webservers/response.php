@@ -34,11 +34,10 @@
                     if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
                     } else {
-                        echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
+                        echo "Connected successfully as user: " 
+                        . htmlspecialchars($username) . "<br>";
                     }
-            } 
-
-            else {
+            } else {
                 // Use stored session variables to connect again if they exist
                     if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
                             $username = $_SESSION['username'];
@@ -52,9 +51,7 @@
                         if (!$conn) {
                             die("Connection failed: " . mysqli_connect_error());
                         }
-            }
-
-            else {
+            } else {
                 // Redirect back to the login form if no session found
                     header("Location: form.html");
                     exit();
