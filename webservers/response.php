@@ -12,6 +12,12 @@
                 $password = filter_input(INPUT_POST, 'password');
                 $database = "Games"; // Change to your actual database name
                 $server = "localhost";
+
+
+                //save first the credentials
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+        
                 $conn = mysqli_connect($server, $username, $password, $database); // Connect to the database
           
                 if (!$conn) {
@@ -20,9 +26,7 @@
                     echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
                 }
             // Store credentials in session variables
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-        
+                
             // Check connection
                 
             } else {
