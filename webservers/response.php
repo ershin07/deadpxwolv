@@ -71,8 +71,6 @@
         
         // If exit button is clicked
         if (isset($_POST['exit'])) {
-            $username = filter_input(INPUT_POST, 'username');
-            $password = filter_input(INPUT_POST, 'password');
             mysqli_close(); // Close the connection
             header("Location: form.html"); // Redirect to the login page
             exit();
