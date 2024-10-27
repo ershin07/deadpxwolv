@@ -12,7 +12,7 @@
 
         function showSuccess() {
             alert("Connected successfully!"); // Show success message
-            window.location.href = "welcome.html";
+            window.location.href = "database.html";
         }
     </script>
 
