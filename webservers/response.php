@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Result</title>
-
     <script>
 
             function showError() {
@@ -30,7 +29,22 @@
             // Connection successful, show success and redirect
             echo "<script>showSuccess();</script>";
         }
+        
     ?>
+    <?php
+                // Assuming $result is your query result from the database
+                if (mysqli_num_rows($result) > 0) {
+                    // Iterate through each row of the result
+                    foreach ($result as $row) {
+                        echo "<p>Id: {$row['id']} | Name: {$row['title']} | Developer: {$row['developer']}</p>";
+                    }
+                } else {
+                    echo "<p>No results found.</p>";
+                }
+        ?>
+    <h1>
+        Enter data base
+    </h1>
     </head>
     <body>
         <form action="" method="POST">
@@ -53,17 +67,7 @@
         </form>
 
         
-        <?php
-                // Assuming $result is your query result from the database
-                if (mysqli_num_rows($result) > 0) {
-                    // Iterate through each row of the result
-                    foreach ($result as $row) {
-                        echo "<p>Id: {$row['id']} | Name: {$row['title']} | Developer: {$row['developer']}</p>";
-                    }
-                } else {
-                    echo "<p>No results found.</p>";
-                }
-            ?>
-            
+        
+
     </body>
 </html>
