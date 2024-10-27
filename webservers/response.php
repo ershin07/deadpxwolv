@@ -8,25 +8,11 @@
         ini_set('display_errors', 1);
         //initializing connection
         
-                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-                $database = "Games"; // Change to your actual database name
-                $server = "localhost";
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $database = "Games"; // Change to your actual database name
+            $server = "localhost";
         
-                if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
-                    $username = $_SESSION['username'];
-                    $password = $_SESSION['password'];
-                    $database = "Games"; // Your database name
-                    $server = "localhost";
-            
-            // Connect to the database using session variables
-                $conn = mysqli_connect($server, $username, $password, $database);}
-
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
-            
-
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
 
