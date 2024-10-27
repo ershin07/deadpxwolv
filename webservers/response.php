@@ -27,10 +27,10 @@
             echo "<script>showSuccess();</script>";
             mysqli_close($conn); 
         } else {
-            echo "<script>showError();</script>";
-            mysqli_close($conn); 
+            echo "<p>Connection failed: " . mysqli_connect_error() . "</p>";
+            echo "<p>Redirecting to form...</p>";
+            echo "<script>window.location.href = 'form.html';</script>";
         }
-
     ?>
 
     </head>
