@@ -4,16 +4,18 @@
         <title>Result</title>
 
     <script>
-        function errorMSG(){
-            alert('Connection Failed: $errorMessage');
+
+        function startTimer() {
             setTimeout(function() {
-            window.location.href = 'form.html'; // Change to your actual login page
-            }, 3000);
+                window.location.href = "form.html";
+
+            }, 5000); // Redirects after 5 seconds
         }
 
-        function success(){
-            ();
-        }
+        setTimeout(() => {
+            
+        }, timeout);
+        
 
     </script>
 
@@ -25,7 +27,8 @@
         $conn = mysqli_connect($server, $username, $password, $database);
 
         if (!$conn) {
-            errorMSG();
+            echo "startTimer()";
+            die("Connection failed: {mysqli_connect_error()}");
         } else {
             // Show success popup
             echo "Connected successfully";
