@@ -72,11 +72,11 @@
 
         <form action="" method="POST">
             <label for="username">Username (alphanumeric only):</label><br>
-            <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" onblur="validateField()"><br>
+            <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" onblur="validateField()" required placeholder="Enter your Username"><br>
             
 
             <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required placeholder="Enter your password"><br><br>
+            <input type="password" id="password" name="password" required placeholder="Enter your Password"><br><br>
 
             <span id="errorText" class="error">Username and Password required</span><br><br>
 
