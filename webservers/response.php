@@ -3,8 +3,8 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Check if the login form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     // Capture username and password from form submission
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Connection failed: " . mysqli_connect_error());
         }
     } else {
-        // Redirect back to the form if no session found
+        // Redirect back to the login form if no session found
         header("Location: form.html");
         exit();
     }
@@ -89,39 +89,53 @@ if (!$result) {
 </head>
 <body>
     <h1>Data from Database</h1>
-    <form action="" method="POST">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title"><br><br>
+    
+    <!-- Login Form -->
+    <?php if (!isset($_SESSION['username'])): ?>
+        <form action="" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+            
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            
+            <input type="submit" name="login" value="Login">
+        </form>
+    <?php else: ?>
+        <form action="" method="POST">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title"><br><br>
 
-        <label for="developer">Developer:</label><br>
-        <input type="text" id="developer" name="developer"><br><br>
+            <label for="developer">Developer:</label><br>
+            <input type="text" id="developer" name="developer"><br><br>
 
-        <label for="year">Year:</label><br>
-        <input type="number" id="year" name="year"><br><br>
+            <label for="year">Year:</label><br>
+            <input type="number" id="year" name="year"><br><br>
 
-        <input type="submit" value="Submit">
-    </form>
+            <input type="submit" value="Submit">
+        </form>
 
-    <table style="width:50%">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Developer</th>
-        </tr>
-        <?php
-        // Check if there are results and display them
-        if (isset($result) && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>{$row['id']}</td>";
-                echo "<td>{$row['title']}</td>";
-                echo "<td>{$row['developer']}</td>";
-                echo "</tr>";
+        <table style="width:50%">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Developer</th>
+            </tr>
+            <?php
+            // Check if there are results and display them
+            if (isset($result) && mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>{$row['id']}</td>";
+                    echo "<td>{$row['title']}</td>";
+                    echo "<td>{$row['developer']}</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='3'>No results found</td></tr>";
             }
-        } else {
-            echo "<tr><td colspan='3'>No results found</td></tr>";
-        }
-        ?>
-    </table>
+            ?>
+        </table>
+    <?php endif; ?>
 </body>
 </html>
