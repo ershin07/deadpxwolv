@@ -24,6 +24,11 @@
             $database = "Games";
             $conn = mysqli_connect($server, $username, $password, $database);
 
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $_SESSION['username'] = mysqli_real_escape_string($conn, $_POST['username']);
+                $_SESSION['password'] = mysqli_real_escape_string($conn, $_POST['password']);
+            }
+            
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
 
