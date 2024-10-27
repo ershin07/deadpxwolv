@@ -5,20 +5,14 @@
 
     <script>
 
-        function startTimer() {
-            setTimeout(function() {
-                window.location.href = "form.html"
-            }, 5000); // Redirects after 5 seconds
-        }
-
-        function showError() {
+            function showError() {
             alert("Invalid Username or Password"); // Alert for invalid credentials
-            startTimer(); // Start the timer for redirection
+            window.location.href = "form.html";
         }
 
         function showSuccess() {
             alert("Connected successfully!"); // Show success message
-            startTimer(); // Start the timer for redirection
+            window.location.href = "welcome.html";
         }
     </script>
 
