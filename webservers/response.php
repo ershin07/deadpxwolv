@@ -66,7 +66,7 @@
             }
 
             if (!empty($conditions)) {
-                $sql .= " WHERE " . implode(" AND ", $conditions);
+                $sql = " WHERE " . implode(" AND ", $conditions);
             }
 
         // Execute the query and check for results
@@ -82,6 +82,16 @@
             header("Location: form.html"); // Redirect to the login page
             exit();
         }
+
+        if (isset($_POST['insert']) && $conn) {
+            $title = filter_input(INPUT_POST, 'title');
+            $developer = filter_input(INPUT_POST, 'developer');
+            $year = filter_input(INPUT_POST, 'year', FILTER_VALIDATE_INT);
+
+            $sql = "INSERT INTO Games (title, developer, publisher, year)
+            VALUES ($title , $developer, $publisher, $year );";
+        }
+
 
     ?>
 
@@ -114,6 +124,7 @@
             <br>
             <input type="submit" value="Submit">
             <input type="submit" name="exit" value="Exit"> <!-- Exit button -->
+            <input type="submit" name="insert" value="Insert Data"> <!-- Insert button -->
         </form>
         
         <br>
@@ -124,6 +135,8 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Developer</th>
+                <th>Publisher</th>
+                <th>Year</th>
             </tr>
             <?php
       
@@ -132,6 +145,8 @@
                     echo "<td>{$row['id']}</td>"; // ID column
                     echo "<td>{$row['title']}</td>"; // Title column
                     echo "<td>{$row['developer']}</td>"; // Developer column
+                    echo "<td>{$row['publisher']}</td>"; // Developer column
+                    echo "<td>{$row['year']}</td>"; // Developer column
                     echo "</tr>";
                 }
             ?>  
