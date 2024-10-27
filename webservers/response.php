@@ -83,7 +83,7 @@
             exit();
         }
 
-        if (isset($_POST['insert']) && $conn) {
+        if (isset($_POST['insert'])) {
             $title = filter_input(INPUT_POST, 'title');
             $developer = filter_input(INPUT_POST, 'developer');
             $year = filter_input(INPUT_POST, 'year', FILTER_VALIDATE_INT);
