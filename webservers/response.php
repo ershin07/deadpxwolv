@@ -25,15 +25,14 @@
         $conn = mysqli_connect($server, $username, $password, $database);
 
         if (!$conn) {
-            errorMSG()
-
+            errorMSG();
         } else {
             // Show success popup
             echo "Connected successfully";
         }
 
     ?>
-    
+
     </head>
 
 </html>
