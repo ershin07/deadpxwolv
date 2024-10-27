@@ -5,7 +5,7 @@
     <?php  
         ini_set('display_errors', 1);
         //initializing connection
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" ){
             // Capture username and password from form submission
                 $username = filter_input(INPUT_POST, 'username');
                 $password = filter_input(INPUT_POST, 'password');
