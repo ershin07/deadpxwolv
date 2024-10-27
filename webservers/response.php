@@ -23,11 +23,11 @@
         $database = "Games";
         $conn = mysqli_connect($server, $username, $password, $database);
 
-        if (!$conn) {
-             echo "<script>showError();</script>";
-        } else {
-            // Show success popup
+        if ($conn) {
             echo "<script>showSuccess();</script>";
+            mysqli_close($conn); 
+        } else {
+            echo "<script>showError();</script>";
             mysqli_close($conn); 
         }
 
