@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>This is the response page, get over with it!!!</title>
+        <title>Result</title>
 
     <?php
-        $name = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $num = filter_input(INPUT_POST, 'age', FILTER_SANITIZE_NUMBER_INT);
+        $server = "localhost";
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $database = "Games";
+        $conn = mysqli_connect($server, $username, $password, $database);
     ?>
     
     </head>
    
     <body>
-        <p>Your Username is: <?php echo htmlspecialchars($name); ?></p>
-        <p>Your email is: <?php echo htmlspecialchars($email); ?></p>
-        <p>Your age is: <?php echo htmlspecialchars($num); ?></p>
-        <p>mauhahaha</p>
+       <?php 
+        // to be updated
+
+       ?>
     </body>
 </html>
