@@ -15,19 +15,22 @@
     </script>
 
     <?php  
-        //initializing variable
-        $title = '';
-        $developer = '';
-        $year = '';
-
-        //initializing connection
-        $server = "localhost";
-        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-        $database = "Games";
-        $conn = mysqli_connect($server, $username, $password, $database);
-
        
+        //initializing connection
+            $server = "localhost";
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $database = "Games";
+            $conn = mysqli_connect($server, $username, $password, $database);
+
+        // Initialize SQL query
+            $sql = "SELECT * FROM Games";
+
+        // Initialize variables to hold input values
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+            $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
+            $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+
         if (!$conn) {
             // Connection failed, output error message
             $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
@@ -37,21 +40,29 @@
             echo "<script>showSuccess();</script>";
         }
 
-        
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Build SQL query based on input values
+            $conditions = [];
+            if (!empty($title)) {
+                $conditions[] = "title='$title'";
+            }
+            if (!empty($developer)) {
+                $conditions[] = "developer='$developer'";
+            }
+            if (!empty($year)) {
+                $conditions[] = "year='$year'";
+            }
 
-            if (empty($title) && empty($developer) && empty($year)){
-                $sql = "select * from Games;"; 
-            } elseif (empty($developer) && empty($year)){
-                $sql = "select * from Games WHERE title='$title';"; 
-            } elseif (empty($title) && empty($year)){
-                $sql = "select * from Games WHERE developer='$developer';"; 
-            } elseif (empty($title) && empty($developer)){
-                $sql = "select * from Games WHERE year='$year';"; 
-            }    
-        }
+            if (!empty($conditions)) {
+                $sql .= " WHERE " . implode(" AND ", $conditions);
+            }
 
-        $result = mysqli_query($conn, $sql); 
+
+        // Execute the query and check for results
+            $result = mysqli_query($conn, $sql); 
+            if (!$result) {
+                echo "Error executing query: " . mysqli_error($conn);
+                exit(); // Stop if there is an error with the query
+            }
 
     ?>
 
