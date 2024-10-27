@@ -37,7 +37,6 @@
             echo "<script>showSuccess();</script>";
         }
 
-        
 
         if (empty($title) && empty($developer) && empty($year)){
             $sql = "select * from Games;"; 
@@ -65,7 +64,7 @@
     </head>
 
     <body>
-        <form action="" method="POST">
+        <form action="response.php" method="POST">
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title" >
             <br>
