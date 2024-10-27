@@ -28,7 +28,7 @@
 
         if (!$conn) {
             echo "startTimer()";
-            die("Connection failed: {mysqli_connect_error()}");
+            echo "Invalid Username or Password";
         } else {
             // Show success popup
             echo "Connected successfully";
