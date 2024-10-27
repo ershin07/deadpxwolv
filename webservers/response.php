@@ -44,6 +44,15 @@
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 }
+                // If exit button is clicked
+                if (isset($_POST['exit'])) {
+                    session_unset(); // Clear all session variables
+                    session_destroy(); // Destroy the session
+                    mysqli_close($conn); // Close the connection
+                    mysqli_close($conn); // Close the connection
+                    header("Location: form.html"); // Redirect to the login page
+                    exit();
+                }
             } 
 
         // Initialize SQL query
@@ -77,15 +86,7 @@
                 exit(); // Stop if there is an error with the query
             }
         
-        // If exit button is clicked
-            if (isset($_POST['exit'])) {
-                session_unset(); // Clear all session variables
-                session_destroy(); // Destroy the session
-                mysqli_close($conn); // Close the connection
-                mysqli_close($conn); // Close the connection
-                header("Location: form.html"); // Redirect to the login page
-                exit();
-            }
+        
 
     ?>
 
