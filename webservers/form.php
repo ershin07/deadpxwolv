@@ -67,7 +67,7 @@
     <h1>Welcome to Game Database </h1>   
     <h2>Login </h2>
 
-        <form action="" method="POST">
+        <form action="" method="GET">
             <label for="username">Username (alphanumeric only):</label><br>
             <input type="text" id="username" name="username" 
                     pattern="[A-Za-z0-9]+" onblur="validateField()" 
