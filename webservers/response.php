@@ -3,6 +3,7 @@
     <head>
         <title>Result</title>
     <?php  
+        session_start();
         ini_set('display_errors', 1);
         //initializing connection
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
