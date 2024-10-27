@@ -19,7 +19,7 @@
                 $_SESSION['password'] = $password;
         
                 $conn = mysqli_connect($server, $username, $password, $database); // Connect to the database
-          
+                // this doesn't work
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 } else {
@@ -36,9 +36,12 @@
                     $database = "Games"; // Your database name
                     $server = "localhost";
                     $conn = mysqli_connect($server, $username, $password, $database);
-
-                if (!$conn) {
+                    
+                //this error checking doesn't work
+               if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
+                } else {
+                    echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
                 }
             } 
 
