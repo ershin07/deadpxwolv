@@ -20,8 +20,10 @@
         //initializing connection
             $server = "localhost";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $_SESSION['username'] = mysqli_real_escape_string($conn, $_POST['username']);
+                $_SESSION['username'] = mysqli_re($conn, $_POST['username']);
                 $_SESSION['password'] = mysqli_real_escape_string($conn, $_POST['password']);
+                $username = mysqli_real_escape_string($conn, $_SESSION['username']);
+                $password = mysqli_real_escape_string($conn, $_SESSION['password']);
             } else { 
                 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
