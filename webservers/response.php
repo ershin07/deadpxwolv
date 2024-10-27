@@ -1,120 +1,125 @@
-<?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Check if the login form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-    // Capture username and password from form submission
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-    $database = "Games"; // Change to your actual database name
-    $server = "localhost";
-
-    // Check if username and password are provided
-    if (empty($username) || empty($password)) {
-        die("Username or password cannot be empty");
-    }
-
-    // Store credentials in session variables
-    $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
-
-    // Connect to the database
-    $conn = mysqli_connect($server, $username, $password, $database);
-
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    } else {
-        echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
-    }
-} else {
-    // Use stored session variables to connect again if they exist
-    if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
-        $username = $_SESSION['username'];
-        $password = $_SESSION['password'];
-        $database = "Games"; // Your database name
-        $server = "localhost";
-
-        // Connect to the database using session variables
-        $conn = mysqli_connect($server, $username, $password, $database);
-
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-    } else {
-        // Redirect back to the login form if no session found
-        header("Location: form.html");
-        exit();
-    }
-}
-
-// Initialize variables for filtering data
-$title = $_POST['title'] ?? '';
-$developer = $_POST['developer'] ?? '';
-$year = $_POST['year'] ?? '';
-
-// Start building the SQL query
-$sql = "SELECT * FROM Games WHERE 1=1"; // Always true condition for building dynamically
-
-if (!empty($title)) {
-    $sql .= " AND title='$title'";
-}
-if (!empty($developer)) {
-    $sql .= " AND developer='$developer'";
-}
-if (!empty($year)) {
-    $sql .= " AND year='$year'";
-}
-
-echo "SQL Query: " . htmlspecialchars($sql) . "<br>"; // Debugging
-
-// Execute the query
-$result = mysqli_query($conn, $sql);
-if (!$result) {
-    die("Query failed: " . mysqli_error($conn)); // Print error message
-}
-?>
-
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Result</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
+    <head>
+        <title>Result</title>
+    <script>
+
+            function showError() {
+            alert("Invalid Username or Password"); // Alert for invalid credentials
+            window.location.href = "form.html";
         }
+
+        function showSuccess() {
+            alert("Connected successfully!"); // Show success message
+        }
+    </script>
+
+    <?php  
+       session_start();
+
+        //initializing connection
+            $server = "localhost";
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+
+            // Capture username and password from form submission    
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+
+            // Store credentials in session variables
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+
+            } elseif (isset($_SESSION['username']) && isset($_SESSION['password']) ) {
+            // Use stored session variables to connect again if they exist  
+                $username = $_SESSION['username'];
+                $password = $_SESSION['password'];
+            }
+
+            $database = "Games";
+            $conn = mysqli_connect($server, $username, $password, $database);
+        // Initialize SQL query
+            $sql = "SELECT * FROM Games";
+
+        // Initialize variables to hold input values
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+            $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
+            $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+
+        if (!$conn) {
+            // Connection failed, output error message
+            // It doesn't work 
+            $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
+            echo "<script>showError($errorMessage);</script>"; // Pass error message to JavaScript
+        } else {
+            // Connection successful, show success and redirect
+            echo "<script>showSuccess();</script>";
+        }
+        // Store the connection details in session
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password; 
+
+
+
+        // Build SQL query based on input values
+            $conditions = [];
+            if (!empty($title)) {
+                $conditions[] = "title='$title'";
+            }
+            if (!empty($developer)) {
+                $conditions[] = "developer='$developer'";
+            }
+            if (!empty($year)) {
+                $conditions[] = "year='$year'";
+            }
+
+            if (!empty($conditions)) {
+                $sql .= " WHERE " . implode(" AND ", $conditions);
+            }
+
+
+        // Execute the query and check for results
+            $result = mysqli_query($conn, $sql); 
+            if (!$result) {
+                echo "Error executing query: " . mysqli_error($conn);
+                exit(); // Stop if there is an error with the query
+            }
+
+    ?>
+
+    <style>
+    table, th, td {
+    border:1px solid black;
+    }
     </style>
-</head>
-<body>
-    <h1>Data from Database</h1>
-    
-    <!-- Login Form -->
-    <?php if (!isset($_SESSION['username'])): ?>
-        <form action="" method="POST">
-            <label for="username">Username:</label><br>
-            <input type="text" id="username" name="username" required><br><br>
-            
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required><br><br>
-            
-            <input type="submit" name="login" value="Login">
-        </form>
-    <?php else: ?>
+
+    <h1>
+        Enter data base
+    </h1>
+    </head>
+
+    <body>
         <form action="" method="POST">
             <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title"><br><br>
+            <input type="text" id="title" name="title" >
+            <br>
+            <br>
 
             <label for="developer">Developer:</label><br>
-            <input type="text" id="developer" name="developer"><br><br>
+            <input type="text" id="developer" name="developer" >
+            <br>
+            <br>
 
             <label for="year">Year:</label><br>
-            <input type="number" id="year" name="year"><br><br>
-
+            <input type="number" id="year" name="year" >
+            <br>
+            <br>
             <input type="submit" value="Submit">
         </form>
-
+        
+        <br>
+        <br>
+        
         <table style="width:50%">
             <tr>
                 <th>ID</th>
@@ -122,20 +127,15 @@ if (!$result) {
                 <th>Developer</th>
             </tr>
             <?php
-            // Check if there are results and display them
-            if (isset($result) && mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
+      
+                foreach($result as $row) {
                     echo "<tr>";
-                    echo "<td>{$row['id']}</td>";
-                    echo "<td>{$row['title']}</td>";
-                    echo "<td>{$row['developer']}</td>";
+                    echo "<td>{$row['id']}</td>"; // ID column
+                    echo "<td>{$row['title']}</td>"; // Title column
+                    echo "<td>{$row['developer']}</td>"; // Developer column
                     echo "</tr>";
                 }
-            } else {
-                echo "<tr><td colspan='3'>No results found</td></tr>";
-            }
-            ?>
+            ?>  
         </table>
-    <?php endif; ?>
-</body>
+    </body>
 </html>
