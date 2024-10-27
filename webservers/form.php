@@ -55,6 +55,7 @@
                 }
             }
             mysqli_close($conn); // to tidy things up
+        }
         ?>
         
     </head>
