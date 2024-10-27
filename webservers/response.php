@@ -75,7 +75,7 @@
         
         // If exit button is clicked
         if (isset($_POST['exit'])) {
-            mysqli_close(); // Close the connection
+            mysqli_close($conn); // Close the connection
             header("Location: form.html"); // Redirect to the login page
             exit();
         }
