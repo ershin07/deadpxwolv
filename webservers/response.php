@@ -15,29 +15,51 @@
     </script>
 
     <?php  
-       session_start();
-
+       session_start()
         //initializing connection
-            $server = "localhost";
+                
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+                // Capture username and password from form submission
+                    $server = "localhost";
+                    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                    $database = "Games"; // database name
+                
+                // Store credentials in session variables
+                    $_SESSION['username'] = $username;
+                    $_SESSION['password'] = $password;
 
-            // Capture username and password from form submission    
-            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                
+                // Check connection
+                    if (!$conn) {
+                        die("Connection failed: " . mysqli_connect_error());
+                    } else {
+                        echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
+                    }
+            } 
 
+            else {
+                // Use stored session variables to connect again if they exist
+                    if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+                            $username = $_SESSION['username'];
+                            $password = $_SESSION['password'];
+                            $database = "Games"; // Your database name
+                            $server = "localhost";
+            
+                    // Connect to the database using session variables
+                        $conn = mysqli_connect($server, $username, $password, $database);}
 
-            // Store credentials in session variables
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-
-            } elseif (isset($_SESSION['username']) && isset($_SESSION['password']) ) {
-            // Use stored session variables to connect again if they exist  
-                $username = $_SESSION['username'];
-                $password = $_SESSION['password'];
+                        if (!$conn) {
+                            die("Connection failed: " . mysqli_connect_error());
+                        }
             }
 
-            $database = "Games";
-            $conn = mysqli_connect($server, $username, $password, $database);
+            else {
+                // Redirect back to the login form if no session found
+                    header("Location: form.html");
+                    exit();
+            }
+
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
 
@@ -46,20 +68,17 @@
             $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
             $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
 
-        if (!$conn) {
-            // Connection failed, output error message
-            // It doesn't work 
-            $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
-            echo "<script>showError($errorMessage);</script>"; // Pass error message to JavaScript
-        } else {
-            // Connection successful, show success and redirect
-            echo "<script>showSuccess();</script>";
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+            if (!$conn) {
+                // Connection failed, output error message
+                // It doesn't work 
+                $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
+                echo "<script>showError($errorMessage);</script>"; // Pass error message to JavaScript
+            } else {
+                // Connection successful, show success and redirect
+                echo "<script>showSuccess();</script>";
+            }
         }
-        // Store the connection details in session
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password; 
-
-
 
         // Build SQL query based on input values
             $conditions = [];
@@ -76,7 +95,6 @@
             if (!empty($conditions)) {
                 $sql .= " WHERE " . implode(" AND ", $conditions);
             }
-
 
         // Execute the query and check for results
             $result = mysqli_query($conn, $sql); 
