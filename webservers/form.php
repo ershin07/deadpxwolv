@@ -85,7 +85,6 @@
             <span id="errorText" class="error">Username and Password required</span><br><br>
 
             <input type="submit" value="Submit">
-        </form>
 
             <?php
             if (!empty($error)) {
@@ -95,6 +94,9 @@
                 echo "<p class='error'>$error</p>";
             }
             ?>
+
+        </form>
+                   
             <h4>
                 <a href="index.html">
                     To landing page
