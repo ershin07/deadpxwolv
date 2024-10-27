@@ -3,7 +3,6 @@
     <head>
         <title>Result</title>
     <?php  
-        session_start();
         //initializing connection
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             // Capture username and password from form submission
