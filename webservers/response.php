@@ -66,8 +66,8 @@
                 echo "<td>{$row['id']}</td>"; // ID column
                 echo "<td>{$row['title']}</td>"; // Title column
                 echo "<td>{$row['developer']}</td>"; // Developer column
-                echo "</tr>"
-             };
+                echo "</tr>";
+             }
         ?>  
 
     </body>
