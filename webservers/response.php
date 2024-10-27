@@ -23,13 +23,14 @@
         $database = "Games";
         $conn = mysqli_connect($server, $username, $password, $database);
 
-        if ($conn) {
+        if (!$conn) {
+            // Connection failed, output error message
+            $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
+            echo "<script>showError('$errorMessage');</script>"; // Pass error message to JavaScript
+        } else {
+            // Connection successful, show success and redirect
             echo "<script>showSuccess();</script>";
             mysqli_close($conn); 
-        } else {
-            echo "<p>Connection failed: " . mysqli_connect_error() . "</p>";
-            echo "<p>Redirecting to form...</p>";
-            echo "<script>window.location.href = 'form.html';</script>";
         }
     ?>
 
