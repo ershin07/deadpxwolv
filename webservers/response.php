@@ -34,8 +34,8 @@
                     if (!$conn) {
                         die("Connection failed: " . mysqli_connect_error());
                     } else {
-                        echo "Connected successfully as user: " 
-                        . htmlspecialchars($username) . "<br>";
+                        echo "Connected successfully as user: " . 
+                        htmlspecialchars($username) . "<br>";
                     }
             } else {
                 // Use stored session variables to connect again if they exist
@@ -64,18 +64,6 @@
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
             $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
             $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-            if (!$conn) {
-                // Connection failed, output error message
-                // It doesn't work 
-                $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
-                echo "<script>showError($errorMessage);</script>"; // Pass error message to JavaScript
-            } else {
-                // Connection successful, show success and redirect
-                echo "<script>showSuccess();</script>";
-            }
-        }
 
         // Build SQL query based on input values
             $conditions = [];
