@@ -67,16 +67,16 @@
             }
 
             if (!empty($conditions)) {
-                $sql = " WHERE " . implode(" AND ", $conditions);
-    
+                $sql .= " WHERE " . implode(" AND ", $conditions);
 
-        // Execute the query and check for results
-            $result = mysqli_query($conn, $sql); 
-            if (!$result) {
-                echo "Error executing query: " . mysqli_error($conn);
-                exit(); // Stop if there is an error with the query
+            // Execute the query and check for results
+                $result = mysqli_query($conn, $sql); 
+
+                if (!$result) {
+                    echo "Error executing query: " . mysqli_error($conn);
+                    exit(); // Stop if there is an error with the query
+                }
             }
-        }
         // If exit button is clicked
         if (isset($_POST['exit'])) {
             mysqli_close($conn); // Close the connection
