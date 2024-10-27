@@ -34,8 +34,7 @@
         $sql = "select * from Games;"; 
         $result = mysqli_query($conn, $sql);
 
-        foreach($result as $row) {
-            echo "id: {$row["id"]} | Name: {$row["title"]} {$row["developer"]}\n"; }
+        
     ?>
     <h1>
         Enter data base
@@ -59,9 +58,17 @@
             <br>
             <input type="submit" value="Submit">
         </form>
+        
+        <?php
 
-        
-        
+            foreach($result as $row) {
+                echo "<tr>";
+                echo "<td>{$row['id']}</td>"; // ID column
+                echo "<td>{$row['title']}</td>"; // Title column
+                echo "<td>{$row['developer']}</td>"; // Developer column
+                echo "</tr>"
+             }
+        ?>  
 
     </body>
 </html>
