@@ -37,10 +37,22 @@
             echo "<script>showSuccess();</script>";
         }
 
-        if (empty($title) && empty($$developer) && empty($year)){
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+        $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
+        $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+
+        if (empty($title) && empty($developer) && empty($year)){
             $sql = "select * from Games;"; 
-        }
-        $result = mysqli_query($conn, $sql);    
+        } elseif (empty($developer) && empty($year)){
+            $sql = "select * from Games WHERE title='$title';"; 
+        } elseif (empty($title) && empty($year)){
+            $sql = "select * from Games WHERE developer='$developer';"; 
+        } elseif (empty($title) && empty($developer)){
+            $sql = "select * from Games WHERE year='$year';"; 
+        }    
+        
+        $result = mysqli_query($conn, $sql); 
+
     ?>
 
     <style>
@@ -67,7 +79,7 @@
             <br>
 
             <label for="year">Year:</label><br>
-            <input type="int" id="year" name="year" >
+            <input type="number" id="year" name="year" >
             <br>
             <br>
             <input type="submit" value="Submit">
