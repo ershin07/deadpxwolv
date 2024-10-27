@@ -95,8 +95,8 @@
             VALUES ('$title' , '$developer', '$publisher', '$year' );";
 
             if (mysqli_query($conn, $sql)) {
-                echo "Data inserted successfully!"
-                $result = mysqli_query($conn, $sql);;
+                echo "Data inserted successfully!";
+                $result = mysqli_query($conn, $sql);
             } else {
                 echo "Error inserting data: " . mysqli_error($conn);
             }
