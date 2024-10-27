@@ -11,12 +11,6 @@
             } else {
                 errorText.style.display = "none";
             }
-
-            if (field2.value.trim() === "") {
-                errorText.style.display = "inline";
-            } else {
-                errorText.style.display = "none";
-            }
         }
         </script>
 
