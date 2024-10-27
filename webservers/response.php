@@ -12,8 +12,9 @@
 
         if (!$conn) {
             // Show error popup and redirect to login after 3 seconds
+            $errorMessage = mysqli_connect_error(); // Get the connection error
             echo "<script>
-                    alert('Connection Failed: " . mysqli_connect_error() . "');
+                    alert('Connection Failed: $errorMessage');
                     setTimeout(function() {
                         window.location.href = 'login.html'; // Change to your actual login page
                     }, 3000);
