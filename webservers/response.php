@@ -41,7 +41,7 @@
     </h1>
     </head>
     <body>
-        <form action="" method="POST">
+        <form action="response.php" method="POST">
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title" >
             <br>
@@ -60,7 +60,7 @@
         </form>
         
         <?php
-
+            echo "<table>";
             foreach($result as $row) {
                 echo "<tr>";
                 echo "<td>{$row['id']}</td>"; // ID column
@@ -68,6 +68,7 @@
                 echo "<td>{$row['developer']}</td>"; // Developer column
                 echo "</tr>";
              }
+            echo "</table>";
         ?>  
 
     </body>
