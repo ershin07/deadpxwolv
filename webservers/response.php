@@ -16,9 +16,9 @@
 
     <?php  
         //initializing variable
-        $title = '';
-        $developer = '';
-        $year = '';
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+        $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
+        $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
 
         //initializing connection
         $server = "localhost";
@@ -37,9 +37,7 @@
             echo "<script>showSuccess();</script>";
         }
 
-        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-        $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
-        $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+        
 
         if (empty($title) && empty($developer) && empty($year)){
             $sql = "select * from Games;"; 
