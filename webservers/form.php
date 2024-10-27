@@ -65,35 +65,17 @@
     <h1>Welcome to Game Database </h1>   
     <h2>Login </h2>
 
-        <form action="" method="POST"> <!-- I live action blank because I want to use the same page -->
+        <form action="" method="POST">
+            <label for="username">Username (alphanumeric only):</label><br>
+            <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" onblur="validateField()"><br>
+            <span id="errorText" class="error">Username and password required</span><br><br>
 
-            <label for="username"> <!-- Text input with pattern restriction -->
-                Username(alphanumeric only):
-            </label>
-            <br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required placeholder="Enter your password"><br><br>
 
-            <input type="text" id="username" 
-                name="username" pattern="[A-Za-z0-9]+" 
-                onblur="validateField()"><!--input formating-->
-            
-            <span id="errorText" class="error">Username required</span>
-            <br>
-            <br>
-        
-        
-            <label for="password">Password:<!--Password label-->
-                </label>
-                <br>
-
-            <input type="password" id="password" name="password" 
-                required placeholder="Enter your password"> 
-                <br>
-                <br> 
-
-            <!-- Submit button -->
             <input type="submit" value="Submit">
-
         </form>
+        
             <?php
             if (!empty($error)) {
                 echo "<p class='error'>$error</p>";
