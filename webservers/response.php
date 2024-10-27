@@ -29,7 +29,18 @@
                 
             // Check connection
                 
-            }
+            } elseif( isset($_SESSION['username']) && isset($_SESSION['password'])) {
+         
+                    $username = $_SESSION['username'];
+                    $password = $_SESSION['password'];
+                    $database = "Games"; // Your database name
+                    $server = "localhost";
+                    $conn = mysqli_connect($server, $username, $password, $database);
+
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+            } 
 
         // Initialize SQL query
             $sql = "SELECT * FROM Games";
