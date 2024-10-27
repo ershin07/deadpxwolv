@@ -38,8 +38,8 @@
                     $database = "Games"; // Your database name
                     $server = "localhost";
             
-            // Connect to the database using session variables
-                $conn = mysqli_connect($server, $username, $password, $database);}
+                // Connect to the database using session variables
+                    $conn = mysqli_connect($server, $username, $password, $database);}
 
                 if (!$conn) {
                     die("Connection failed: ");
@@ -81,7 +81,6 @@
             if (isset($_POST['exit'])) {
                 $_SESSION['username'] = ''; // Clear username
                 $_SESSION['password'] = ''; // Clear password
-                mysqli_close($conn); // Close the connection
                 header("Location: form.html"); // Redirect to the login page
                 exit();
             }
