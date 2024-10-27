@@ -37,7 +37,7 @@
             echo "<script>showSuccess();</script>";
         }
 
-        if (!$title && !$$developer && !$year){
+        if (empty($title) && empty($$developer) && empty($year)){
             $sql = "select * from Games;"; 
         }
         $result = mysqli_query($conn, $sql);    
