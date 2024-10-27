@@ -16,7 +16,7 @@
 
     <?php  
        session_start();
-       
+
         //initializing connection
             $server = "localhost";
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -40,6 +40,11 @@
             // Connection successful, show success and redirect
             echo "<script>showSuccess();</script>";
         }
+        // Store the connection details in session
+        $_SESSION['username'] = $username;
+        $_SESSION['password'] = $password; 
+
+
 
         // Build SQL query based on input values
             $conditions = [];
