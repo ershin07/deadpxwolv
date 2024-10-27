@@ -11,6 +11,11 @@
             } else {
                 errorText.style.display = "none";
             }
+            if (field2.value.trim() === "") {
+                errorText.style.display = "inline";
+            } else {
+                errorText.style.display = "none";
+            }
         }
         </script>
 
@@ -68,10 +73,11 @@
         <form action="" method="POST">
             <label for="username">Username (alphanumeric only):</label><br>
             <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" onblur="validateField()"><br>
-            <span id="errorText" class="error">Username and password required</span><br><br>
+            <span id="errorText" class="error">Username required</span><br><br>
 
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password" required placeholder="Enter your password"><br><br>
+            <span id="errorText" class="error">Password required</span><br><br>
 
             <input type="submit" value="Submit">
         </form>
