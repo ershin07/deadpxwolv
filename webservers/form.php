@@ -23,8 +23,8 @@
         <?php 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $server = "localhost";
-            $username = "your_db_username"; // Your DB username
-            $password = "your_db_password"; // Your DB password
+            $username = $user; // Your DB username
+            $password = $pass; // Your DB password
             $database = "your_db_name";
             $conn = mysqli_connect($server, $username, $password, $database);   
 
