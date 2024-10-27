@@ -12,21 +12,18 @@
                 $database = "Games"; // Change to your actual database name
                 $server = "localhost";
                 $conn = mysqli_connect($server, $username, $password, $database); // Connect to the database
-            // Check if username and password are provided
-                if (empty($username) || empty($password)) {
-                    die("Username or password cannot be empty");
-                }
-        
-            // Store credentials in session variables
-                $_SESSION['username'] = $username;
-                $_SESSION['password'] = $password;
-        
-            // Check connection
+          
                 if (!$conn) {
                     die("Connection failed: " . mysqli_connect_error());
                 } else {
                     echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
                 }
+            // Store credentials in session variables
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+        
+            // Check connection
+                
             } else {
             // Use stored session variables to connect again if they exist
                 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
