@@ -51,6 +51,7 @@
         // Initialize variables to hold input values
             $title = filter_input(INPUT_POST, 'title');
             $developer = filter_input(INPUT_POST, 'developer');
+            $publisher = filter_input(INPUT_POST, 'publisher');
             $year = filter_input(INPUT_POST, 'year');
 
         // Build SQL query based on input values
@@ -118,10 +119,16 @@
             <br>
             <br>
 
+            <label for="publisher">Publisher:</label><br>
+            <input type="text" id="publisher" name="publisher" >
+            <br>
+            <br>
+
             <label for="year">Year:</label><br>
             <input type="number" id="year" name="year" >
             <br>
             <br>
+
             <input type="submit" value="Submit">
             <input type="submit" name="exit" value="Exit"> <!-- Exit button -->
             <input type="submit" name="insert" value="Insert Data"> <!-- Insert button -->
