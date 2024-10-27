@@ -54,7 +54,6 @@
             $year = filter_input(INPUT_POST, 'year');
 
         // Build SQL query based on input values
-        if (isset($_POST['submit'])) {
             $conditions = [];
             if (!empty($title)) {
                 $conditions[] = "title='$title'";
@@ -68,7 +67,7 @@
 
             if (!empty($conditions)) {
                 $sql = " WHERE " . implode(" AND ", $conditions);
-            }
+    
 
         // Execute the query and check for results
             $result = mysqli_query($conn, $sql); 
@@ -140,7 +139,6 @@
                 <th>Year</th>
             </tr>
             <?php
-      
                 foreach($result as $row) {
                     echo "<tr>";
                     echo "<td>{$row['id']}</td>"; // ID column
