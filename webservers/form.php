@@ -1,68 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .error { color: red; }
-    </style>
-</head>
-<body>
-    <h2>Login</h2>
-    <?php
-    $error = "";
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $server = "localhost";
-        $username = "your_db_username"; // Your DB username
-        $password = "your_db_password"; // Your DB password
-        $database = "your_db_name";
-
-        $conn = mysqli_connect($server, $username, $password, $database);
-
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
-        if (empty($user) || empty($pass)) {
-            $error = "Username and password are required.";
-        } else {
-            $query = "SELECT * FROM users WHERE username='$user' AND password='$pass'";
-            $result = mysqli_query($conn, $query);
-
-            if (!$result) {
-                $error = "Query failed: " . mysqli_error($conn);
-            } elseif (mysqli_num_rows($result) > 0) {
-                // Successful login
-                echo "Login successful.";
-                exit; // Prevent further code execution
+<html>
+    <head>
+        <script>
+            function validateField() { // if username and password is missing
+            var field1= document.getElementById("username");
+            var field2= document.getElementById("password");
+            var errorText = document.getElementById("errorText");
+            if( (field1.value.trim() === "")  && (field2.value.trim() === "") ) {
+                errorText.style.display = "inline";
             } else {
-                // Login failed
-                $error = "Invalid username or password.";
+                errorText.style.display = "none";
             }
         }
+        </script>
 
-        mysqli_close($conn);
-    }
-    ?>
-    <form method="POST" action="">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES); ?>"><br><br>
+        <!-- text format for style -->
+        <style> 
+            body { font-family: Arial, sans-serif; }
+            .error { color: red; display: none; }
+        </style>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
+        <?php 
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $server = "localhost";
+            $username = "your_db_username"; // Your DB username
+            $password = "your_db_password"; // Your DB password
+            $database = "your_db_name";
+            $conn = mysqli_connect($server, $username, $password, $database);   
 
-        <input type="submit" value="Submit">
-    </form>
-    <?php
-    if (!empty($error)) {
-        echo "<p class='error'>$error</p>";
-    }
-    ?>
-</body>
+            if (!$conn) {
+                die("Connection failed: {mysqli_connect_error()}");
+              }
+              echo "Connected successfully";
+            
+            $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING); // SANITIZER lol
+            $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+            if (empty($user) || empty($pass)) {
+                $error = "Username and password are required.";
+            } else {
+                $query = "SELECT * FROM users WHERE username='$user' AND password='$pass'";
+                $result = mysqli_query($conn, $query);
+    
+                if (!$result) {
+                    $error = "Query failed: " . mysqli_error($conn);
+                } elseif (mysqli_num_rows($result) > 0) {
+                    // Successful login
+                    echo "Login successful.";
+                    // Redirect to another page or show content based on successful login
+                    exit; // Prevent further code execution
+                } else {
+                    // Login failed
+                    $error = "Invalid username or password.";
+                }
+            }
+            mysqli_close($conn); // to tidy things up
+        }
+        ?>
+        
+    </head>
+
+    <body>
+    
+    <h1>Welcome to Game Database </h1>   
+    <h2>Login </h2>
+
+        <form action="" method="POST"> <!-- I live action blank because I want to use the same page -->
+
+            <label for="username"> <!-- Text input with pattern restriction -->
+                Username(alphanumeric only):
+            </label>
+            <br>
+
+            <input type="text" id="username" 
+                name="username" pattern="[A-Za-z0-9]+" 
+                onblur="validateField()"><!--input formating-->
+            
+            <span id="errorText" class="error">Username required</span>
+            <br>
+            <br>
+        
+        
+            <label for="password">Password:<!--Password label-->
+                </label>
+                <br>
+
+            <input type="password" id="password" name="password" 
+                required placeholder="Enter your password"> 
+                <br>
+                <br> 
+
+            <!-- Submit button -->
+            <input type="submit" value="Submit">
+
+        </form>
+            <?php
+            if (!empty($error)) {
+                echo "<p class='error'>$error</p>";
+            }
+            ?>
+            <h4>
+                <a href="index.html">
+                    To landing page
+                </a>
+            </h4>
+
+            <h4>
+                <a href="welcome.html">
+                    To Welcome Page
+                </a>
+            </h4>
+
+    </body>
 </html>
