@@ -94,9 +94,11 @@
             $sql = "INSERT INTO Games (title, developer, publisher, year)
             VALUES ('$title' , '$developer', '$publisher', '$year' );";
 
+            $result = mysqli_query($conn, $sql);
+            
             if (mysqli_query($conn, $sql)) {
                 echo "Data inserted successfully!";
-                $result = mysqli_query($conn, $sql);
+                
             } else {
                 echo "Error inserting data: " . mysqli_error($conn);
             }
