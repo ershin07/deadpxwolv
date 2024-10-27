@@ -32,10 +32,15 @@
         }
 
         $sql = "select * from Games;"; 
-        $result = mysqli_query($conn, $sql);
-
-        
+        $result = mysqli_query($conn, $sql);    
     ?>
+
+    <style>
+    table, th, td {
+    border:1px solid black;
+    }
+    </style>
+
     <h1>
         Enter data base
     </h1>
@@ -58,18 +63,22 @@
             <br>
             <input type="submit" value="Submit">
         </form>
-        
-        <?php
-            echo "<table>";
-            foreach($result as $row) {
-                echo "<tr>";
-                echo "<td>{$row['id']}</td>"; // ID column
-                echo "<td>{$row['title']}</td>"; // Title column
-                echo "<td>{$row['developer']}</td>"; // Developer column
-                echo "</tr>";
-             }
-            echo "</table>";
-        ?>  
 
+        <table style="width:100%">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Developer</th>
+            </tr>
+            <?php
+                foreach($result as $row) {
+                    echo "<tr>";
+                    echo "<td>{$row['id']}</td>"; // ID column
+                    echo "<td>{$row['title']}</td>"; // Title column
+                    echo "<td>{$row['developer']}</td>"; // Developer column
+                    echo "</tr>";
+                }
+            ?>  
+        </table>
     </body>
 </html>
