@@ -1,92 +1,94 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script>
-            function validateField() {
-                var field1 = document.getElementById("username");
-                var field2 = document.getElementById("password");
-                var errorText = document.getElementById("errorText");
-                if (field1.value.trim() === "" || field2.value.trim() === "") {
-                    errorText.style.display = "inline";
-                } else {
-                    errorText.style.display = "none";
-                }
-            }
-        </script>
+<head>
+    <title>Game Database Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .error { color: red; display: none; }
+    </style>
+    <script>
+        function validateField() {
+            var field1 = document.getElementById("username");
+            var field2 = document.getElementById("password");
+            var errorText = document.getElementById("errorText");
 
-        <!-- text format for style -->
-        <style> 
-            body { font-family: Arial, sans-serif; }
-            .error { color: red; display: none; }
-        </style>
-
-        <?php 
-
-        $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $server = "localhost";
-            $username = "your_db_user"; // Replace with your actual DB username
-            $password = "your_db_password"; // Replace with your actual DB password
-            $database = "your_db_name";
-            $conn = mysqli_connect($server, $username, $password, $database);
-
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-                echo "<p>Connection Failed</p>";
+            if (field1.value.trim() === "" || field2.value.trim() === "") {
+                errorText.style.display = "inline";
+                return false; // Prevent form submission
+            } else {
+                errorText.style.display = "none";
+                return true;
             }
         }
+    </script>
+</head>
+<body>
 
-        ?>
+<?php 
+// Server-side PHP code to process login
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $server = "localhost";
+    $username = "your_db_user"; // Replace with your actual DB username
+    $password = "your_db_password"; // Replace with your actual DB password
+    $database = "your_db_name";
 
-        
-    </head>
+    // Establish database connection
+    $conn = new mysqli($server, $username, $password, $database);
 
-    <body>
-    
-    <h1>Welcome to Game Database </h1>   
-    <h2>Login </h2>
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-        <form action="" method="POST">
-            <label for="username">Username (alphanumeric only):</label><br>
-            <input type="text" id="username" name="username" 
-                    pattern="[A-Za-z0-9]+" onblur="validateField()" 
-                    required placeholder="Enter your Username">
-            <br>
-            <br>
+    // Sanitize input
+    $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" 
-                    required placeholder="Enter your Password"><br><br>
+    if (empty($user) || empty($pass)) {
+        $error = "Username and password are required.";
+    } else {
+        // Prepare and bind statement to prevent SQL injection
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+        $stmt->bind_param("ss", $user, $pass); // Bind parameters
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            <br>
-            <br>
+        if ($result && $result->num_rows > 0) {
+            echo "<p>Login successful.</p>";
+            exit;
+        } else {
+            $error = "Invalid username or password.";
+        }
+        $stmt->close();
+    }
+    $conn->close();
+}
+?>
 
-            <span id="errorText" class="error">Username and Password required</span><br><br>
+<h1>Welcome to Game Database</h1>   
+<h2>Login</h2>
 
-            <input type="submit" value="Submit">
+<form action="" method="POST" onsubmit="return validateField()">
+    <label for="username">Username (alphanumeric only):</label><br>
+    <input type="text" id="username" name="username" pattern="[A-Za-z0-9]+" required placeholder="Enter your Username">
+    <br><br>
 
-            <?php
-            if (!empty($error)) {
-                echo "<p class='error'>$error</p>";
-            }
-            if (!empty($success)) {
-                echo "<p class='error'>$error</p>";
-            }
-            ?>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required placeholder="Enter your Password"><br><br>
 
-        </form>  
-            <h4>
-                <a href="index.html">
-                    To landing page
-                </a>
-            </h4>
-            <h4>
-                <a href="welcome.html">
-                    To Welcome Page
-                </a>
-            </h4>
+    <span id="errorText" class="error">Username and Password required</span><br><br>
+    <input type="submit" value="Submit">
+</form>  
 
-    </body>
+<?php
+// Display error message if there was an error
+if (isset($error)) {
+    echo "<p class='error'>$error</p>";
+}
+?>
+
+<h4><a href="index.html">To landing page</a></h4>
+<h4><a href="welcome.html">To Welcome Page</a></h4>
+
+</body>
 </html>
