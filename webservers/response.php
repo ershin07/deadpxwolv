@@ -16,9 +16,9 @@
 
     <?php  
         //initializing variable
-        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
-        $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
-        $year = filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+        $title = '';
+        $developer = '';
+        $year = '';
 
         //initializing connection
         $server = "localhost";
@@ -37,16 +37,23 @@
             echo "<script>showSuccess();</script>";
         }
 
+        
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (empty($title) && empty($developer) && empty($year)){
-            $sql = "select * from Games;"; 
-        } elseif (empty($developer) && empty($year)){
-            $sql = "select * from Games WHERE title='$title';"; 
-        } elseif (empty($title) && empty($year)){
-            $sql = "select * from Games WHERE developer='$developer';"; 
-        } elseif (empty($title) && empty($developer)){
-            $sql = "select * from Games WHERE year='$year';"; 
-        }    
+            $title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+            $developer = filter_input(INPUT_POST, 'developer', FILTER_SANITIZE_STRING);
+            $year = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+            if (empty($title) && empty($developer) && empty($year)){
+                $sql = "select * from Games;"; 
+            } elseif (empty($developer) && empty($year)){
+                $sql = "select * from Games WHERE title='$title';"; 
+            } elseif (empty($title) && empty($year)){
+                $sql = "select * from Games WHERE developer='$developer';"; 
+            } elseif (empty($title) && empty($developer)){
+                $sql = "select * from Games WHERE year='$year';"; 
+            }    
+        }
         
         $result = mysqli_query($conn, $sql); 
 
@@ -64,7 +71,7 @@
     </head>
 
     <body>
-        <form action="response.php" method="POST">
+        <form action="" method="POST">
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title" >
             <br>
