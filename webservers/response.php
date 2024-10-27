@@ -11,11 +11,15 @@
             }, 5000); // Redirects after 5 seconds
         }
 
-        setTimeout(() => {
-            
-        }, timeout);
-        
+        function showError() {
+            alert("Invalid Username or Password"); // Alert for invalid credentials
+            startTimer(); // Start the timer for redirection
+        }
 
+        function showSuccess() {
+            alert("Connected successfully!"); // Show success message
+            startTimer(); // Start the timer for redirection
+        }
     </script>
 
     <?php
@@ -26,10 +30,11 @@
         $conn = mysqli_connect($server, $username, $password, $database);
 
         if (!$conn) {
-            echo "Invalid Username or Password";
+             echo "<script>showError();</script>";
         } else {
             // Show success popup
-            echo "Connected successfully";
+            echo "<script>showSuccess();</script>";
+            mysqli_close($conn); 
         }
 
     ?>
