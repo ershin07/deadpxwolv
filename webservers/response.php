@@ -26,7 +26,7 @@
         
             // Check connection
                 if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
+                    die("Connection failed: " );
                 } else {
                     echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
                 }
@@ -42,7 +42,7 @@
                 $conn = mysqli_connect($server, $username, $password, $database);}
 
                 if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
+                    die("Connection failed: ");
                 }
             } 
 
