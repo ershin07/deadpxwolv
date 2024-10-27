@@ -50,7 +50,7 @@
             <input type="int" id="year" name="year" >
             <br>
             <br>
-
+            <input type="submit" value="Submit">
 
         </form>
 
