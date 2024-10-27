@@ -3,6 +3,7 @@
     <head>
         <title>Result</title>
     <?php  
+        session_start();
         //initializing connection
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             // Capture username and password from form submission
@@ -25,7 +26,7 @@
         
             // Check connection
                 if (!$conn) {
-                    die("Connection failed: " );
+                    die("Connection failed: " . mysqli_connect_error());
                 } else {
                     echo "Connected successfully as user: " . htmlspecialchars($username) . "<br>";
                 }
@@ -37,11 +38,11 @@
                     $database = "Games"; // Your database name
                     $server = "localhost";
             
-                // Connect to the database using session variables
-                    $conn = mysqli_connect($server, $username, $password, $database);}
+            // Connect to the database using session variables
+                $conn = mysqli_connect($server, $username, $password, $database);}
 
                 if (!$conn) {
-                    die("Connection failed: ");
+                    die("Connection failed: " . mysqli_connect_error());
                 }
             } 
 
@@ -77,12 +78,13 @@
             }
         
         // If exit button is clicked
-            if (isset($_POST['exit'])) {
-                $_SESSION['username'] = ''; // Clear username
-                $_SESSION['password'] = ''; // Clear password
-                header("Location: form.html"); // Redirect to the login page
-                exit();
-            }
+        if (isset($_POST['exit'])) {
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            mysqli_close(); // Close the connection
+            header("Location: form.html"); // Redirect to the login page
+            exit();
+        }
 
     ?>
 
@@ -125,7 +127,6 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Developer</th>
-                <th>Year</th>
             </tr>
             <?php
       
@@ -134,7 +135,6 @@
                     echo "<td>{$row['id']}</td>"; // ID column
                     echo "<td>{$row['title']}</td>"; // Title column
                     echo "<td>{$row['developer']}</td>"; // Developer column
-                    echo "<td>{$row['year']}</td>"; // year column
                     echo "</tr>";
                 }
             ?>  
