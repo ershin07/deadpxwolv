@@ -12,7 +12,6 @@
 
         function showSuccess() {
             alert("Connected successfully!"); // Show success message
-            window.location.href = "database.html";
         }
     </script>
 
@@ -26,14 +25,45 @@
         if (!$conn) {
             // Connection failed, output error message
             $errorMessage = "Connection failed: " . mysqli_connect_error(); // Get the error message
-            echo "<script>showError('$errorMessage');</script>"; // Pass error message to JavaScript
+            echo "<script>showError($errorMessage);</script>"; // Pass error message to JavaScript
         } else {
             // Connection successful, show success and redirect
             echo "<script>showSuccess();</script>";
-            mysqli_close($conn); 
         }
     ?>
-
     </head>
+    <body>
+        <form action="" method="POST">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" >
+            <br>
+            <br>
 
+            <label for="developer">Developer:</label><br>
+            <input type="text" id="developer" name="developer" >
+            <br>
+            <br>
+
+            <label for="year">Year:</label><br>
+            <input type="int" id="year" name="year" >
+            <br>
+            <br>
+
+
+        </form>
+
+        
+        <?php
+                // Assuming $result is your query result from the database
+                if (mysqli_num_rows($result) > 0) {
+                    // Iterate through each row of the result
+                    foreach ($result as $row) {
+                        echo "<p>Id: {$row['id']} | Name: {$row['title']} | Developer: {$row['developer']}</p>";
+                    }
+                } else {
+                    echo "<p>No results found.</p>";
+                }
+            ?>
+            
+    </body>
 </html>
