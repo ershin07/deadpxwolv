@@ -3,15 +3,15 @@
     <head>
         <script>
             function validateField() {
-            var field1 = document.getElementById("username");
-            var field2 = document.getElementById("password");
-            var errorText = document.getElementById("errorText");
-            if (field1.value.trim() === "") || (field2.value.trim() === "") {
-                errorText.style.display = "inline";
-            } else {
-                errorText.style.display = "none";
+                var field1 = document.getElementById("username");
+                var field2 = document.getElementById("password");
+                var errorText = document.getElementById("errorText");
+                if (field1.value.trim() === "" || field2.value.trim() === "") {
+                    errorText.style.display = "inline";
+                } else {
+                    errorText.style.display = "none";
+                }
             }
-        }
         </script>
 
         <!-- text format for style -->
@@ -21,44 +21,25 @@
         </style>
 
         <?php 
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $server = "localhost";
-            $username = $user; // Your DB username
-            $password = $pass; // Your DB password
+            $username = "your_db_user"; // Replace with your actual DB username
+            $password = "your_db_password"; // Replace with your actual DB password
             $database = "your_db_name";
-            $conn = mysqli_connect($server, $username, $password, $database);   
+            $conn = mysqli_connect($server, $username, $password, $database);
 
             if (!$conn) {
-                die("Connection failed: {mysqli_connect_error()}");
-              } else {
-                $success = "Connected successfully";
-              }
-               
-            
-            $user = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING); // SANITIZER lol
-            $pass = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-
-            if (empty($user) || empty($pass)) {
-                $error = "Username and password are required.";
-            } else {
-                $query = "SELECT * FROM users WHERE username='$user' AND password='$pass'";
-                $result = mysqli_query($conn, $query);
-    
-                if (!$result) {
-                    $error = "Query failed: " . mysqli_error($conn);
-                } elseif (mysqli_num_rows($result) > 0) {
-                    // Successful login
-                    echo "Login successful.";
-                    // Redirect to another page or show content based on successful login
-                    exit; // Prevent further code execution
-                } else {
-                    // Login failed
-                    $error = "Invalid username or password.";
-                }
+                die("Connection failed: " . mysqli_connect_error());
+                echo "<p>Connection Failed</p>"
             }
-            mysqli_close($conn); // to tidy things up
         }
+        
         ?>
+
         
     </head>
 
@@ -95,14 +76,12 @@
             }
             ?>
 
-        </form>
-                   
+        </form>  
             <h4>
                 <a href="index.html">
                     To landing page
                 </a>
             </h4>
-
             <h4>
                 <a href="welcome.html">
                     To Welcome Page
