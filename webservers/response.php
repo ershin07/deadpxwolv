@@ -91,18 +91,14 @@
             $developer = filter_input(INPUT_POST, 'developer');
             $year = filter_input(INPUT_POST, 'year', FILTER_VALIDATE_INT);
 
-            $insert = "INSERT INTO Games (title, developer, publisher, year)
+            $sql = "INSERT INTO Games (title, developer, publisher, year)
             VALUES ('$title' , '$developer', '$publisher', '$year' );";
-
-            $result = mysqli_query($conn, $sql);
 
             if (mysqli_query($conn, $sql)) {
                 echo "Data inserted successfully!";
-                
-            } else {
+             } else {
                 echo "Error inserting data: " . mysqli_error($conn);
-            }
-
+             }
         }
 
 
