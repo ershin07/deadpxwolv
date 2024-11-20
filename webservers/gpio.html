@@ -5,7 +5,7 @@
             getText("toggle.php");
     
             async function toggle() {
-                let myObject = await fetch(toggle.php);
+                let myObject = await fetch("toggle.php");
                 var x = document.getElementById("buttonLED")
                 if (x.innerHTML === "OFF"){
                     x.innerHTML = "ON";

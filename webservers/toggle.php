@@ -1,3 +1,3 @@
 <?php  
-$output = `gpio toggle 25`;
+`gpio toggle 25`;
 ?>
