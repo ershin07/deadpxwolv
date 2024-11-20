@@ -1,0 +1,1 @@
+$output = `gpio toggle 25`;
